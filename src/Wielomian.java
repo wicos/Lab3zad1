@@ -2,46 +2,46 @@ import java.util.Scanner;
 
 public class Wielomian {
     private int n;
-    private double[] wspolczynniki;
+    private double[] wspol;
 
     public Wielomian(int n, double[] wspolczynnik1) {
         this.n = n;
-        this.wspolczynniki = new double[n+1];
+        this.wspol = new double[n+1];
         Scanner scanner = new Scanner(System.in);
         for (int i = n; i >= 0; i--) {
-            System.out.print("Podaj współczynnik do potęgi " + i + ": ");
-            this.wspolczynniki[i] = scanner.nextDouble();
+            System.out.print("Podaj wspolczynnik do potęgi " + i + ": ");
+            this.wspol[i] = scanner.nextDouble();
         }
     }
 
-    public Wielomian dodaj(Wielomian W) {
+    public Wielomian dodawanie(Wielomian W) {
         if (this.n != W.n) {
-            throw new IllegalArgumentException("Wielomiany muszą mieć ten sam stopień");
+            throw new IllegalArgumentException("Wielomiany muszą mieć ten sam stopien");
         }
-        Wielomian wynik = new Wielomian(this.n, wspolczynniki);
+        Wielomian wynik = new Wielomian(this.n, wspol);
         for (int i = 0; i <= this.n; i++) {
-            wynik.wspolczynniki[i] = this.wspolczynniki[i] + W.wspolczynniki[i];
+            wynik.wspol[i] = this.wspol[i] + W.wspol[i];
         }
         return wynik;
     }
 
-    public Wielomian odejmij(Wielomian W) {
+    public Wielomian odejmowanie(Wielomian W) {
         if (this.n != W.n) {
-            throw new IllegalArgumentException("Wielomiany muszą mieć ten sam stopień");
+            throw new IllegalArgumentException("Wielomiany muszą mieć ten sam stopien");
         }
-        Wielomian wynik = new Wielomian(this.n, wspolczynniki);
+        Wielomian wynik = new Wielomian(this.n, wspol);
         for (int i = 0; i <= this.n; i++) {
-            wynik.wspolczynniki[i] = this.wspolczynniki[i] - W.wspolczynniki[i];
+            wynik.wspol[i] = this.wspol[i] - W.wspol[i];
         }
         return wynik;
     }
 
-    public Wielomian pomnoz(Wielomian W) {
+    public Wielomian mnozenie(Wielomian W) {
         int stopien = this.n + W.n;
-        Wielomian wynik = new Wielomian(stopien, wspolczynniki);
+        Wielomian wynik = new Wielomian(stopien, wspol);
         for (int i = 0; i <= this.n; i++) {
             for (int j = 0; j <= W.n; j++) {
-                wynik.wspolczynniki[i+j] += this.wspolczynniki[i] * W.wspolczynniki[j];
+                wynik.wspol[i+j] += this.wspol[i] * W.wspol[j];
             }
         }
         return wynik;
@@ -50,7 +50,7 @@ public class Wielomian {
     public void wypisz() {
         System.out.print("Wielomian: ");
         for (int i = n; i >= 0; i--) {
-            System.out.print(this.wspolczynniki[i] + "x^" + i);
+            System.out.print(this.wspol[i] + "x^" + i);
             if (i > 0) {
                 System.out.print(" + ");
             }
@@ -60,11 +60,11 @@ public class Wielomian {
 
     public double oblicz(double x) {
         if (x > 120 || x < -100) {
-            throw new IllegalArgumentException("x musi być z przedziału [-100, 120]");
+            throw new IllegalArgumentException("x powinno byc z przedzialu -100 do 120");
         }
         double wynik = 0;
         for (int i = n; i >= 0; i--) {
-            wynik += this.wspolczynniki[i] * Math.pow(x, i);
+            wynik += this.wspol[i] * Math.pow(x, i);
         }
         return wynik;
     }
